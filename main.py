@@ -15,6 +15,7 @@ show_thoughts = False
 load_dotenv()
 
 from assistant.tools.weather import get_weather_current, get_weather_forecast
+from assistant.tools.attractions import get_attractions
 
 CHAT_MODEL = os.getenv("CHAT_MODEL")
 
@@ -24,7 +25,7 @@ if not CHAT_MODEL:
 
 llm = init_chat_model(CHAT_MODEL, model_provider="ollama")
 
-tool_list = [get_weather_current, get_weather_forecast]
+tool_list = [get_weather_current, get_weather_forecast, get_attractions]
 llm = llm.bind_tools(tool_list)
 tool_node = ToolNode(tool_list)
 
@@ -130,7 +131,8 @@ if __name__ == "__main__":
         "messages": [{"role": "system", "content": system_prompt}]
     }
 
-    print("Travel Assistant is ready! Ask about weather, packing tips, or destinations 👋")
+    print("----------------------------------")
+    print("Travel Assistant is ready! Ask about general traveling questions, weather & attractions at different cities or packing tips")
     print("Type /cmds to see available user-only commands and /exit to quit\n")
 
     while True:
