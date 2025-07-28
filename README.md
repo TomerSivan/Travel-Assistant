@@ -4,7 +4,7 @@
 ## Setup Environment Variables
 - Qwen3:4b Recommended
 ```
-CHAT_MODEL=Llama
+CHAT_MODEL=Llama3
 WEATHER_API_KEY=123
 OPENTRIPMAP_API_KEY = abcd
 ```
