@@ -71,7 +71,7 @@ def get_weather_forecast(city_name: str) -> str:
 
     for date, entries in sorted(daily_data.items()):
         if date == today:
-            continue  # skip partial data for today
+            continue
 
         temps_min = [e[0] for e in entries]
         temps_max = [e[1] for e in entries]
