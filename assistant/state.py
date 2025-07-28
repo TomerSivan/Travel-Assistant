@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import TypedDict, List, Dict, Union
 
 class ChatState(TypedDict):
-    message: str
+    messages: List[Dict[str, Union[str, Dict]]]
