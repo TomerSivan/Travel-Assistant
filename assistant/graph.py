@@ -1,22 +1,17 @@
 from langgraph.graph import StateGraph, START, END
-from langgraph.prebuilt import ToolNode
+from assistant.state import ChatState
 
-from .state import ChatState
-
-def build_graph(interpreter_node, tools_node, router_node, tool_list):
-    tool_node = ToolNode(tool_list)
-
+def build_graph(assistant_node, tools_node, tools_condition):
     builder = StateGraph(ChatState)
 
-
-    builder.add_node("interpreter", interpreter_node)
+    builder.add_node("assistant", assistant_node)
     builder.add_node("tools", tools_node)
 
-    builder.add_edge(START, "interpreter")
-    builder.add_edge("tools", "interpreter")
-    builder.add_conditional_edges("interpreter", router_node, {
+    builder.set_entry_point("assistant")
+    builder.add_conditional_edges("assistant", tools_condition, {
         "tools": "tools",
-        "end": END
+        "end": END,
     })
+    builder.add_edge("tools", "assistant")
 
     return builder.compile()
