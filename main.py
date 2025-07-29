@@ -54,7 +54,11 @@ def tools_node(state: ChatState) -> ChatState:
 def tools_condition(state: ChatState) -> str:
     """Routing condition: Checks if tools are required based on assistant's last message"""
     last_message = state["messages"][-1]
-    tool_calls = getattr(last_message, "tool_calls", None)
+
+    if not isinstance(last_message, dict):
+        last_message = message_to_dict(last_message)
+
+    tool_calls = last_message.get("tool_calls")
 
     if debug_mode:
         print(f"[DEBUG]: tool_calls = {tool_calls}")
