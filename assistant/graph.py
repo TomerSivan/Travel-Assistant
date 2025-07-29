@@ -8,7 +8,7 @@ def build_graph(assistant_node, tools_node, tools_condition):
     The graph works as follows:
 
     1. Starts at the assistant node.
-    2. Assistant may invoke tools (e.g. weather, attractions).
+    2. Assistant may call tools (e.g. weather, attractions).
     3. If tools are needed (based on assistant's output), call them.
     4. Then return to assistant with updated info.
     5. End if no tools are required.
