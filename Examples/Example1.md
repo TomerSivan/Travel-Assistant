@@ -6,15 +6,6 @@
 
 - User: Hmm I think I wanna fly out to Budapest soon, How's the weather like there?
 
-- Tool: Current weather in Budapest, HU: clear sky, 24.4°C.
-
-- Tool: 5-day forecast for Budapest:
-Wednesday: clear sky, 18.0°C – 26.7°C
-Thursday: broken clouds, 18.8°C – 27.7°C
-Friday: scattered clouds, 20.0°C – 31.2°C
-Saturday: overcast clouds, 20.1°C – 31.5°C
-Sunday: overcast clouds, 17.1°C – 26.9°C
-
 - Assistant: Here's the weather information for Budapest:
 
 **Current Conditions:**  
@@ -45,37 +36,6 @@ Let me know if you'd like help planning activities based on these conditions! �
 Would you like me to check the weather for any of these cities or suggest attractions in one of them? 😊
 
 - User: Oh yeah tokyo! I will do it! What should I pack?
-
-- Tool: Current weather in Tokyo, JP: few clouds, 28.2°C.
-
-- Tool: 5-day forecast for Tokyo:
-Wednesday: clear sky, 25.6°C – 34.3°C
-Thursday: clear sky, 26.0°C – 32.4°C
-Friday: light rain, 26.7°C – 32.0°C
-Saturday: light rain, 26.0°C – 29.6°C
-Sunday: overcast clouds, 26.6°C – 33.6°C
-
-- Tool: Top attractions in Tokyo:
-- Tōkaidō (other)
-- Tokyo City Hall Tower II (skyscrapers)
-- Shinjuku Central Park (urban_environment)
-- Shinjuku Niagara Falls (fountains)
-- keio plaza hotel tokyo (skyscrapers)
-- keio plaza hotel tokyo premier grand (skyscrapers)
-- Memorial Museum for Soldiers, Detainees in Siberia, and Postwar Repatriates (cultural)
-- Shinjuku Sumitomo Building (skyscrapers)
-- Kyubei Sushi at Keio Plaza Hotel (skyscrapers)
-- Keio Plaza Hotel (skyscrapers)
-- Juniso Kumano Shrine (religion)
-- Shinjuku Mitsui Building (skyscrapers)
-- Juniso Kumano Shrine (religion)
-- Shinjuku Center Building (skyscrapers)
-- KDDI Building (skyscrapers)
-- 新宿アイタウン (skyscrapers)
-- Shinjuku Monolith Building (skyscrapers)
-- Shinjuku First West (skyscrapers)
-- Odakyu Dai-ichi Life Building (skyscrapers)
-- S-tec Information Building (skyscrapers)
 
 - Assistant: Here’s a tailored packing list for Tokyo, based on the weather and activities:
 
