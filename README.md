@@ -1,7 +1,7 @@
 # Travel Assistant
-An intelligent travel assistant powered by **LangGraph**, **LangChain**, and **Ollama**.  
-It helps you plan trips through natural conversation, including checking current weather, 
-giving attraction suggestions, and offering personalized packing tips as its main queries.
+A terminal based travel assistant built using LangGraph, LangChain, and Ollama.  
+It helps you plan trips by checking current weather, giving attraction suggestions,
+and offering personalized packing tips through natural chat.
 
 ---
 
@@ -16,17 +16,17 @@ giving attraction suggestions, and offering personalized packing tips as its mai
 
 ## Powered by Travel APIs
 
-This assistant integrates two public APIs to deliver accurate, real-time travel data:
+This assistant integrates two public APIs:
 
-### 🔶 OpenWeatherMap API
+### OpenWeatherMap API
 Used to retrieve:
 - **Current weather** for any city
-- **5-day weather forecasts** to help with trip planning and packing
+- **5-day weather forecasts** for any city
 
 API Website: https://openweathermap.org/api
 
 
-### 🔷 OpenTripMap API
+### OpenTripMap API
 Used to retrieve:
 - **Top-rated attractions** in any given city
 
@@ -69,8 +69,7 @@ OPENTRIPMAP_API_KEY=your_opentripmap_key
 ```
 
 ### 5. Run the Assistant
-And to finish up and start talking to the assistant chatbot via your terminal
-use:
+Finally to start talking to the assistant chatbot via your terminal use:
 
 ```
 python main.py
@@ -131,11 +130,8 @@ Below is a simplified diagram of the Travel Assistant's LangGraph structure:
 
 ### Why This Structure?
 
-This setup ensures:
-- There is a natural back and forth between reasoning and tools
-- LLM re-evaluates its output with tool results
-- Tools are only called when needed
-- The loop exits cleanly once all goals are fulfilled
+This design makes the assistant feel responsive to what you ask of it and makes it efficient: 
+it checks tools when needed, reacts to their outputs, and knows when to stop.
 
 ---
 ## Prompt Engineering
@@ -144,23 +140,22 @@ This setup ensures:
 
 The Travel Assistant uses a prompt approach that combines:
 
-- **Zero-shot prompting** (clear instructions & no full examples)
+- **Zero shot prompting** (clear instructions & no full examples)
 - **Minimal in-context guidance** (low level examples via formatting and logic)
 - **Role + Persona framing**
-- **Guardrail constraints**
-- **Chain of thought reasoning**
+- **Clarify behaviour**
+- **Reasoning by chain of thought**
 
 ### Why This Design?
 
-I chose a zero-shot prompting style to keep the assistant lightweight, adaptable, and context-efficient. This works well because:
-- The task domain is structured but varied (weather, attractions, packing)
-- User input is often ambiguous or creatively phrased
-- Tool use is governed by explicit logic rules
+I went with a zero-shot prompt so it stays lightweight & flexible. 
+Since user input can be vague or move between different tasks, 
+I wanted it to rely on build in logic rather than long and detailed examples.
 
-To support this, the prompt defines:
+To support this, the prompt also defines:
 - A clear persona and tone (helpful, intelligent, professional)
-- Behavioral guardrails (e.g., clarify when unsure, avoid assumptions)
-- Logic-driven examples (e.g., “if vague, call both weather tools”) instead of full few-shot demos
+- Instruct to Clarify when unsure, avoid assumptions
+- Give logic driven examples (e.g., “if vague, call both weather tools”) instead of full few-shot demos
 
 ---
 
@@ -177,10 +172,10 @@ Defines the assistant’s purpose and task queries.
 focusing on helpfulness, intelligence, and travel-related guidance.
 ```
 You are a helpful and intelligent travel assistant. Your role is to support users with travel-related questions, including:
-- Weather at destinations (current or forecast)
-- Notable attractions and local experiences
-- Packing suggestions tailored to the trip
-- General travel tips and trip planning support
+- Weather (current or forecast)
+- Local attractions and activities
+- Packing advice based on conditions
+- General travel tips
 ```
 
 #### 3. Response Style
@@ -200,33 +195,37 @@ Use tools only when necessary to improve your response. Always follow these logi
 1. If the user asks for **weather**:
     - If they specify **current** or **forecast**, call only the specified tool.
     - If they are vague or just say “weather”, call **both** `get_weather_current` and `get_weather_forecast`.
-    - Very important that you only provide weather data do **not** offer suggestions, packing advice, or attractions unless explicitly asked.
+    - Crucial that you only provide weather data do **not** offer suggestions, packing advice, or attractions unless explicitly asked.
 
 2. If the user asks for **activities or attractions**, you must check the weather first.
    - Use the weather conditions to decide what to recommend or avoid (e.g., avoid outdoor spots in rain).
 
 3. If the user asks for **packing advice**, you must check **both** the weather and possible activities.
    - This ensures packing advice is relevant (e.g., umbrella for rain, hiking shoes if hikes are likely).
-   - Also provide general packing advice such as important documents (Passport, Medications, Phone, Etc...)
+   - Also mention general essentials like passport, medications, phone, etc.
 ```
 
-#### 5. Tool Combination Support
-Helps the assistant to bundle multiple tool calls together when needed for richer responses.
+#### 5. Tool Combination
+Encourages the assistant to bundle multiple tool calls together when needed for richer responses.
 ```
 You may request multiple tools in a single message when necessary.
 - For example: packing advice may require using both the weather and attractions tools together.
 ```
 
 
-#### 6. Logic and Thought Guardrails
-Reduces unnecessary reasoning loops and prevents the assistant from fabricating suggestions or sections.
+#### 6. Logic and Thought
+Outlines using a clear ching of thought to perform tasks step by step in addition to
+reducing unnecessary reasoning loops and prevents the assistant from making up suggestions or sections.
 ```
-Avoid repeating the same checks or logic multiple times in your thoughts.
-Never assume or include extra sections unless clearly requested. Always base suggestions on actual data from tools.
+When reasoning about multi-step tasks (like packing), break it down step by step and act clearly, 
+for example: identify what's needed (e.g., weather + attractions), decide on tools, then respond.
+
+Keep <think> sections short (1–2 sentences) and avoid repeating logic.
+Only include suggestions or sections if the user clearly asked for them, and always base them on actual tool results.
 ```
 
 #### 7. Conversation Management
-Guides the assistant in handling ambiguous input and maintaining professionalism.
+Guides the assistant in handling ambiguous input which it has no tools for and to maintain professionalism.
 ```
 Conversation Guidance:
 - If user input is unclear or incomplete, ask for clarification.
