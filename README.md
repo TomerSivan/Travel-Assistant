@@ -138,9 +138,33 @@ This setup ensures:
 - The loop exits cleanly once all goals are fulfilled
 
 ---
-
 ## Prompt Engineering
-System Prompt:
+
+### Prompting Strategy
+
+The Travel Assistant uses a prompt approach that combines:
+
+- **Zero-shot prompting** (clear instructions & no full examples)
+- **Minimal in-context guidance** (low level examples via formatting and logic)
+- **Role + Persona framing**
+- **Guardrail constraints**
+- **Chain of thought reasoning**
+
+### Why This Design?
+
+I chose a zero-shot prompting style to keep the assistant lightweight, adaptable, and context-efficient. This works well because:
+- The task domain is structured but varied (weather, attractions, packing)
+- User input is often ambiguous or creatively phrased
+- Tool use is governed by explicit logic rules
+
+To support this, the prompt defines:
+- A clear persona and tone (helpful, intelligent, professional)
+- Behavioral guardrails (e.g., clarify when unsure, avoid assumptions)
+- Logic-driven examples (e.g., “if vague, call both weather tools”) instead of full few-shot demos
+
+---
+
+### System Prompt:
 
 ```
 today = datetime.today().strftime("%A, %B %d, %Y")
