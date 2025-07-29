@@ -117,15 +117,16 @@ The graph consists of two main nodes and a simple routing condition:
 - `tools` - executes any tools requested by the LLM (e.g. current weather, attractions, etc.) and updates the conversation state.
 
 **Control Flow:**
-1. ➤ Start at the `assistant` node.
-2. ➤ The LLM interprets the user's message:
+1. Start at the `assistant` node.
+2. The LLM interprets the user's message:
    - If tool calls are needed go to `tools`
    - If not end the conversation
-3. ➤ The `tools` node executes tool calls and updates the state.
-4. ➤ After tools are run, control returns to `assistant`.
-5. ➤ This loop continues until no further tools are required.
+3. The `tools` node executes tool calls and updates the state.
+4. After tools are run, control returns to `assistant`.
+5. This loop continues until no further tools are required.
 
 Below is a simplified diagram of the Travel Assistant's LangGraph structure:
+
 ![LangGraph UML Diagram](Examples/langgraph_diagram.JPG)
 
 ### Why This Structure?
