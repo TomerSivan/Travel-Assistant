@@ -8,7 +8,6 @@ giving attraction suggestions, and offering personalized packing tips as its mai
 ## Table of Contents
 - [APIs](#powered-by-travel-apis)
 - [How to Use](#how-to-use)
-- [Powered by Travel APIs](#powered-by-travel-apis)
 - [Supported Queries & Commands](#supported-queries--commands)
 - [LangGraph Workflow](#langgraph-workflow)
 - [Prompt Engineering](#prompt-engineering)
