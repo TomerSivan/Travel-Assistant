@@ -1,0 +1,6 @@
+langchain==0.3.27
+langgraph==0.5.4
+ollama==0.5.1
+python-dotenv==1.1.1
+requests==2.32.4
+langchain-core==0.3.72
