@@ -4,11 +4,24 @@ from collections import defaultdict
 from datetime import datetime
 from langchain_core.tools import tool
 
+# Get OpenWeatherMap API key from environment variables
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
+
+# Endpoints for current weather + 5 day forecast APIs
 BASE_CURRENT_URL = "https://api.openweathermap.org/data/2.5/weather"
 BASE_FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast"
 
-def _fetch_weather_data(url: str, city_name: str) -> dict | str:
+
+def _fetch_weather_data(url: str, city_name: str) -> str:
+    """
+    Internal helper to query OpenWeatherMap API with a given URL and city name.
+    Handles error cases and returns parsed data on success or a formatted
+    error message string on failure.
+
+    :param url: Full API endpoint (e.g., current or forecast URL)
+    :param city_name: Target city for weather data
+    :return: Parsed response data (dict) or error message (str)
+    """
     if not WEATHER_API_KEY:
         return "[TOOL ERROR] Missing or invalid WEATHER_API_KEY"
 
@@ -34,10 +47,18 @@ def _fetch_weather_data(url: str, city_name: str) -> dict | str:
 
 @tool
 def get_weather_current(city_name: str) -> str:
-    """Given a city name returns the current weather for the city."""
+    """
+    Tool: Returns the current weather for a given city.
+
+    Calls the OpenWeatherMap 'weather' endpoint and formats the response
+    with temperature and description.
+
+    :param city_name: Name of the city to fetch weather for
+    :return: Readable summary of the current weather or error string
+    """
     data = _fetch_weather_data(BASE_CURRENT_URL, city_name)
     if isinstance(data, str):
-        return data  # Error message
+        return data
 
     temp = data["main"]["temp"]
     desc = data["weather"][0]["description"]
@@ -48,10 +69,18 @@ def get_weather_current(city_name: str) -> str:
 
 @tool
 def get_weather_forecast(city_name: str) -> str:
-    """Returns a 5-day weather forecast for a given city."""
+    """
+    Tool: Returns a 5-day forecast for the given city.
+
+    Requests data from OpenWeatherMap's 3-hour interval forecast API,
+    calculating daily high/low temperatures and the most common description.
+
+    :param city_name: Name of the city to get forecast for
+    :return: 5-day Weather forecast string or error string
+    """
     data = _fetch_weather_data(BASE_FORECAST_URL, city_name)
     if isinstance(data, str):
-        return data  # Error message
+        return data
 
     forecasts = data.get("list")
     if not forecasts:
@@ -59,6 +88,7 @@ def get_weather_forecast(city_name: str) -> str:
 
     daily_data = defaultdict(list)
 
+    # Group temperature and description data by day
     for item in forecasts:
         date = item["dt_txt"].split(" ")[0]
         temp_min = item["main"]["temp_min"]
@@ -69,9 +99,10 @@ def get_weather_forecast(city_name: str) -> str:
     today = datetime.now().strftime('%Y-%m-%d')
     lines = []
 
+    # Summarize each day: min/max temp and most common description
     for date, entries in sorted(daily_data.items()):
         if date == today:
-            continue
+            continue    # Skip today — focus on future forecast
 
         temps_min = [e[0] for e in entries]
         temps_max = [e[1] for e in entries]
