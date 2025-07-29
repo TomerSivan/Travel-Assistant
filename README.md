@@ -113,8 +113,8 @@ The Travel Assistant uses a dynamic, tool-aware conversation loop built with **L
 The graph consists of two main nodes and a simple routing condition:
 
 **Nodes:**
-- `assistant` – the core LLM node responsible for interpreting the user's message, reasoning, and generating tool calls (if needed).
-- `tools` – executes any tools requested by the LLM (e.g. current weather, attractions, etc.) and updates the conversation state.
+- `assistant` - the core LLM node responsible for interpreting the user's message, reasoning, and generating tool calls (if needed).
+- `tools` - executes any tools requested by the LLM (e.g. current weather, attractions, etc.) and updates the conversation state.
 
 **Control Flow:**
 1. ➤ Start at the `assistant` node.
