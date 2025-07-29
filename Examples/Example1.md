@@ -1,5 +1,6 @@
---- Conversation History ---
-----------------------------------
+Travel Assistant is ready! Ask about general traveling questions, weather & attractions at different cities or packing tips
+Type /cmds to see available user-only commands and /exit to quit
+
 - User: Hello there!
 
 - Assistant: Hello! How can I assist you today? Whether you need information about weather, attractions, packing tips, or anything else related to travel, feel free to ask! 😊
