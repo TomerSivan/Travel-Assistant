@@ -163,7 +163,7 @@ To support this, the prompt also defines:
 #### 1. Adding Date
 Adds to the prompt today’s date so the assistant can reason about time related information (especially weather).
 ```
-today = datetime.today().strftime("%A, %B %d, %Y")
+today = datetime.today().strftime("%A, %B %d, %Y at %I:%M %p")
 return f"""Today is {today}.
 ```
 
