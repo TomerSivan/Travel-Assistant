@@ -148,7 +148,7 @@ The Travel Assistant uses a prompt approach that combines:
 
 ### Why This Design?
 
-I went with a zero-shot prompt so it stays lightweight & flexible. 
+I went with a zero-shot prompt so it stays lightweight, flexible & easy to maintain. 
 Since user input can be vague or move between different tasks, 
 I wanted it to rely on build in logic rather than long and detailed examples.
 
@@ -163,7 +163,7 @@ To support this, the prompt also defines:
 #### 1. Adding Date
 Adds to the prompt today’s date so the assistant can reason about time related information (especially weather).
 ```
-today = datetime.today().strftime("%A, %B %d, %Y")
+today = datetime.today().strftime("%A, %B %d, %Y at %I:%M %p")
 return f"""Today is {today}.
 ```
 
