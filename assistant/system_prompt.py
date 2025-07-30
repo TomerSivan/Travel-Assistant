@@ -6,7 +6,7 @@ def get_system_prompt() -> str:
 
     :return: A string used as the initial prompt for guiding the assistant's behavior.
     """
-    today = datetime.today().strftime("%A, %B %d, %Y" at %I:%M %p")
+    today = datetime.today().strftime("%A, %B %d, %Y at %I:%M %p")
     return f"""Today is {today}.
 
 You are a helpful and intelligent travel assistant. Your role is to support users with travel-related questions, including:
