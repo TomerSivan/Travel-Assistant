@@ -55,8 +55,8 @@ Download Ollama from https://ollama.com and install it locally.
 Then, in your terminal, pull a model (Recommended - qwen:4b, Has to support Langchain tools):
 
 ```
-ollama pull qwen:4b
-ollama run qwen:4b
+ollama pull qwen3:4b
+ollama run qwen3:4b
 ```
 
 ### 4. Set Up Environment Variables
